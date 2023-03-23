@@ -1,0 +1,24 @@
+.nav {
+    grid-area: n;
+    background-color: rgb(0, 140, 255);
+    margin-top: 4px;
+    margin-right: 4px;
+}
+
+.item {
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 20px;
+    padding: 25px;
+
+
+}
+
+.item a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.item a:focus {
+    color: gold;
+}
