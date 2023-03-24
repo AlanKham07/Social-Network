@@ -1,0 +1,23 @@
+.avatar img {
+    width: 250px;
+    height: 250px;
+    padding: 10px;
+}
+
+.avatar {
+    grid-area: avatar;
+}
+
+.userData {
+    grid-area: userData;
+    font-family: sans-serif;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.profileInfo {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas:
+        'avatar userData';
+}

@@ -1,10 +1,11 @@
+html {
+  background-color: rgb(226, 226, 226);
+}
+
 .app-wrapper {
   display: grid;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
-  width: 1200px;
-  margin: 0 auto;
-  margin-top: 70px;
   grid-template-areas:
     'h h'
     'n c';
@@ -13,6 +14,7 @@
 .app-wrapper-content {
 
   grid-area: c;
-  background-color: rgb(230, 225, 225);
-  margin-top: 4px;
+  background-color: #fff;
+  margin-top: 10px;
+  width: 80%;
 }
