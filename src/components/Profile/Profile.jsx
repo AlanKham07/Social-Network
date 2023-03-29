@@ -4,12 +4,12 @@ import MyPost from "./MyPost/MyPost";
 import ProfileBanner from "./ProfileBanner/ProfileBanner";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <div className={s.content}>
             <ProfileBanner />
             <ProfileInfo />
-            <MyPost />
+            <MyPost postData={props.postData} />
         </div>
     )
 }
