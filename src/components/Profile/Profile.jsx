@@ -5,11 +5,12 @@ import ProfileBanner from "./ProfileBanner/ProfileBanner";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = (props) => {
+    debugger;
     return (
         <div className={s.content}>
             <ProfileBanner />
             <ProfileInfo />
-            <MyPost postData={props.postData} />
+            <MyPost postData={props.state.postData} />
         </div>
     )
 }
