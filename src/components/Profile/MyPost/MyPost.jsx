@@ -9,9 +9,16 @@ const MyPost = (props) => {
     let newPostElement = React.createRef();
     
     let addPost = () => {
+        props.addPost();
+        // При изменении в textarea вызывается newPostChange, берется содержимое поля и вызывается функция updateNewPostText,
+        //  в объекст newPostText помещается содержимое поля и ререндерится дерево. 
+        //  Далее при нажатии кнопки добавления поста вызывается функция addPost, которая лежит в MyPost, она в свою очередь вызывает функцию addPost, 
+        //  которая лежит в state.js и создается объект(пост), в котором сообщение берется из объекта newPostText и он пушится в посты, затем дерево ререндерится.
+    };
+
+    let newPostChange = () => {
         let text = newPostElement.current.value;
-        props.addPost(text);
-        newPostElement.current.value = '';
+        props.updateNewPostText(text);
     };
 
     return (
@@ -19,10 +26,10 @@ const MyPost = (props) => {
             <h3>My post</h3>
             <div>
                 <div>
-                    <textarea ref={ newPostElement }></textarea>
+                    <textarea onChange={newPostChange} ref={ newPostElement } value={props.newPostText}></textarea>
                 </div>
                 <div>
-                    <button onClick={ addPost }>Send</button>
+                    <button onClick={ addPost } className={s.button}>Send</button>
                 </div>
             </div>
             <div className={s.posts}>

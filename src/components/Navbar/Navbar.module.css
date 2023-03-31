@@ -1,6 +1,6 @@
 .nav {
     grid-area: n;
-  background-color: rgb(226, 226, 226);
+    background-color: rgb(226, 226, 226);
     margin-left: 100px;
     margin-top: 10px;
     margin-right: 4px;
@@ -22,4 +22,10 @@
 
 .item a:focus {
     color: gold;
+            
+}
+
+.item a:hover {
+    color: #e92424;
+
 }
