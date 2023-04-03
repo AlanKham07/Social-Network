@@ -5,9 +5,9 @@ import Post from "./Post/Post";
 const MyPost = (props) => {
 
     let postElement = props.postData.map(post => <Post messages={post.messages} likesCount={post.likesCount} id={post.id} />);
-    
+
     let newPostElement = React.createRef();
-    
+
     let addPost = () => {
         props.addPost();
         // При изменении в textarea вызывается newPostChange, берется содержимое поля и вызывается функция updateNewPostText,
@@ -26,10 +26,10 @@ const MyPost = (props) => {
             <h3>My post</h3>
             <div>
                 <div>
-                    <textarea onChange={newPostChange} ref={ newPostElement } value={props.newPostText}></textarea>
+                    <textarea onChange={newPostChange} ref={newPostElement} value={props.newPostText}></textarea>
                 </div>
                 <div>
-                    <button onClick={ addPost } className={s.button}>Send</button>
+                    <button onClick={addPost} className={s.button}>Send</button>
                 </div>
             </div>
             <div className={s.posts}>
