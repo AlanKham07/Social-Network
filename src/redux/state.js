@@ -26,29 +26,47 @@ let store = {
             ]
         },
     },
-    getState() {
-        return this._state;
-    },
     _rerenderEntireTree() {
         console.log('State changed');
     },
-    addPost() {
-        let newPost = {
-            messages: this._state.profilePage.newPostText,
-            likesCount: 0,
-            id: 3
-        };
-        this._state.profilePage.postData.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._rerenderEntireTree(this._state);
-    },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this._rerenderEntireTree(this._state);
+
+    getState() {
+        return this._state;
     },
     subscribe(observer) {
         this._rerenderEntireTree = observer;
     },
+
+    // addPost() {
+    //     let newPost = {
+    //         messages: this._state.profilePage.newPostText,
+    //         likesCount: 0,
+    //         id: 3
+    //     };
+    //     this._state.profilePage.postData.push(newPost);
+    //     this._state.profilePage.newPostText = '';
+    //     this._rerenderEntireTree(this._state);
+    // },
+    // updateNewPostText(newText) {
+    //     this._state.profilePage.newPostText = newText;
+    //     this._rerenderEntireTree(this._state);
+    // },
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost = {
+                messages: this._state.profilePage.newPostText,
+                likesCount: 0,
+                id: 3
+            };
+            this._state.profilePage.postData.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._rerenderEntireTree(this._state);
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._rerenderEntireTree(this._state);
+        }
+    }
 }
 
 window.store = store;
