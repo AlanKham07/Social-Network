@@ -20,12 +20,12 @@
     text-decoration: none;
 }
 
-.item a:focus {
-    color: gold;
+.item a.active {
+    color: rgb(0, 139, 231);
             
 }
 
 .item a:hover {
-    color: #e92424;
+    color: rgb(0, 139, 231);
 
 }
