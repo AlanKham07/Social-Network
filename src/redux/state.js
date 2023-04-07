@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
 
 let store = {
     _state: {
@@ -8,7 +10,7 @@ let store = {
                 { messages: 'Hello', likesCount: 9, id: 1 },
                 { messages: 'How are you?', likesCount: 25, id: 2 }
             ],
-            newPostText: 'Hello, World!'
+            newPostText: ''
         },
         dialogsPage: {
             dialogData: [
@@ -26,11 +28,12 @@ let store = {
                 { message: 'What is your name?', id: 4 },
                 { message: 'Aleikum Salam', id: 5 },
                 { message: 'Privet', id: 6 },
-            ]
+            ],
+            newMessageBody: ''
         },
     },
     _rerenderEntireTree() {
-        console.log('State changed');
+        console.log('State changed'); //этот метод уже изменился, когда сработал метод subscribe
     },
 
     getState() {
@@ -68,13 +71,31 @@ let store = {
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
             this._rerenderEntireTree(this._state);
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+            this._state.dialogsPage.newMessageBody = action.newBody;
+            this._rerenderEntireTree(this._state);
+        } else if (action.type === 'SEND-MESSAGE') {
+            debugger;
+            let newMessage = {
+                message: this._state.dialogsPage.newMessageBody,
+                id: 7
+            }
+            this._state.dialogsPage.messageData.push(newMessage);
+            this._state.dialogsPage.newMessageBody = '';
+            this._rerenderEntireTree(this._state);
         }
     }
 }
 
 export const addPostActionCreator = () => ({ type: ADD_POST });
 
-export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
+export const updateNewPostTextActionCreator = (text) =>
+    ({ type: UPDATE_NEW_POST_TEXT, newText: text });
+
+export const sendMessageCreator = () => ({ type: SEND_MESSAGE });
+
+export const updateNewMessageBodyCreator = (body) =>
+    ({ type: UPDATE_NEW_MESSAGE_BODY, newBody: body });
 
 window.store = store;
 
