@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 let store = {
     _state: {
@@ -31,9 +30,10 @@ let store = {
             ],
             newMessageBody: ''
         },
+        sidebar: {},
     },
     _rerenderEntireTree() {
-        console.log('State changed'); //этот метод уже изменился, когда сработал метод subscribe
+        console.log('State changed'); //этот метод уже изменился, когда сработал метод subscribe, который был вызван еще в index.js
     },
 
     getState() {
@@ -42,60 +42,15 @@ let store = {
     subscribe(observer) {
         this._rerenderEntireTree = observer;
     },
-
-    // addPost() {
-    //     let newPost = {
-    //         messages: this._state.profilePage.newPostText,
-    //         likesCount: 0,
-    //         id: 3
-    //     };
-    //     this._state.profilePage.postData.push(newPost);
-    //     this._state.profilePage.newPostText = '';
-    //     this._rerenderEntireTree(this._state);
-    // },
-    // updateNewPostText(newText) {
-    //     this._state.profilePage.newPostText = newText;
-    //     this._rerenderEntireTree(this._state);
-    // },
-
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost = {
-                messages: this._state.profilePage.newPostText,
-                likesCount: 0,
-                id: 3
-            };
-            this._state.profilePage.postData.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._rerenderEntireTree(this._state);
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._rerenderEntireTree(this._state);
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this._state.dialogsPage.newMessageBody = action.newBody;
-            this._rerenderEntireTree(this._state);
-        } else if (action.type === 'SEND-MESSAGE') {
-            debugger;
-            let newMessage = {
-                message: this._state.dialogsPage.newMessageBody,
-                id: 7
-            }
-            this._state.dialogsPage.messageData.push(newMessage);
-            this._state.dialogsPage.newMessageBody = '';
-            this._rerenderEntireTree(this._state);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action); // после редьюса нам приходит новый profilePage и мы его сразу же записываем в profilePage, то есть обновляем
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+        this._rerenderEntireTree(this._state);
+
     }
 }
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-
-export const updateNewPostTextActionCreator = (text) =>
-    ({ type: UPDATE_NEW_POST_TEXT, newText: text });
-
-export const sendMessageCreator = () => ({ type: SEND_MESSAGE });
-
-export const updateNewMessageBodyCreator = (body) =>
-    ({ type: UPDATE_NEW_MESSAGE_BODY, newBody: body });
 
 window.store = store;
 
