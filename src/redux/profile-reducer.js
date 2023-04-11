@@ -1,7 +1,15 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state, action) => {
+let initialState = {
+    postData: [
+        { messages: 'Hello', likesCount: 9, id: 1 },
+        { messages: 'How are you?', likesCount: 25, id: 2 }
+    ],
+    newPostText: ''
+};
+
+const profileReducer = (state = initialState, action) => {
     // в данном случае state это и есть profilePagе, просто он приходит к нам с другим названием 
     // и + нам не нужно обращаться через this, так как state и так к нам приходит
     // rerender удаляем, так как функция profileReducer предназначена для преобразования и возвращения преобразованного state

@@ -1,7 +1,27 @@
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-const dialogsReducer = (state, action) => {
+let initialState = {
+    dialogData: [
+        { name: 'Andrey', id: 1 },
+        { name: 'Sasha', id: 2 },
+        { name: 'Tamik', id: 3 },
+        { name: 'Astik', id: 4 },
+        { name: 'Alan', id: 5 },
+        { name: 'Yasya', id: 6 }
+    ],
+    messageData: [
+        { message: 'Hello', id: 1 },
+        { message: 'How are you?', id: 2 },
+        { message: 'Salam', id: 3 },
+        { message: 'What is your name?', id: 4 },
+        { message: 'Aleikum Salam', id: 5 },
+        { message: 'Privet', id: 6 },
+    ],
+    newMessageBody: ''
+};
+
+const dialogsReducer = (state = initialState, action) => {
     // здесь же вместо state приходи dialogsPage, то есть в каждый reducer приходит своя часть state
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
