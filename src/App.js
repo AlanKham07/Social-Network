@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
@@ -14,8 +13,8 @@ const App = (props) => {
       <Navbar />
       <div className='app-wrapper-content'>
         <Routes>
-          <Route path='/profile' element={<Profile store={props.store} />} />
-          <Route path='/dialogs/*' element={<DialogsContainer store={props.store} />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/dialogs/*' element={<DialogsContainer />} />
         </Routes>
       </div>
     </div>
