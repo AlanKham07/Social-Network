@@ -10,5 +10,5 @@ let reducers = combineReducers({   // по сути это наш state, мы г
 });
 
 let store = createStore(reducers); // createStore создает внутри себя state у которого есть три свойства
-
+window.reducers = reducers;
 export default store;
