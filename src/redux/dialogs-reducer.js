@@ -25,16 +25,20 @@ const dialogsReducer = (state = initialState, action) => {
     // здесь же вместо state приходи dialogsPage, то есть в каждый reducer приходит своя часть state
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.newBody;
-            return state;
+            return {
+                ...state,
+                newMessageBody: action.newBody
+            }
         case SEND_MESSAGE:
             let newMessage = {
                 message: state.newMessageBody,
                 id: 7
             }
-            state.messageData.push(newMessage);
-            state.newMessageBody = '';
-            return state;
+            return {
+                ...state,
+                messageData: [...state.messageData, newMessage],
+                newMessageBody: ''
+            }
         default:
             return state;
     };

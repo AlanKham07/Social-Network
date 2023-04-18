@@ -20,13 +20,19 @@ const profileReducer = (state = initialState, action) => {
                 likesCount: 0,
                 id: 3
             };
-            state.postData.push(newPost);
-            state.newPostText = '';
-            return state;
+            return {
+                ...state,
+                postData: [...state.postData, newPost],
+                newPostText: ''
+            };
+        // к нам приходит state и мы не имеем право его менять напрямую, поэтому создаем копию.
+        // так как копия поверхностная мы должны отдельно скопировать массив
 
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
+            return {
+                ...state,
+                newPostText: action.newText
+            }
         default:
             return state;
     }
