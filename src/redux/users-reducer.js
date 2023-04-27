@@ -6,7 +6,7 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 
 let initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 5, //кол-во пользователей отображаемых на стр
     totalUsersCount: 0,
     currentPage: 1
 };
@@ -66,7 +66,5 @@ export const setUsersActionCreator = (users) => ({ type: SET_USERS, users });
 export const setCurrentPageActionCreator = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
 
 export const setUsersTotalCountAC = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount });
-
-
 
 export default usersReducer;
