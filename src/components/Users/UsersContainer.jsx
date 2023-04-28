@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import axios from 'axios';
 import Users from "./Users";
-import { followActionCreator, setUsersActionCreator, unfollowActionCreator, setCurrentPageActionCreator, setUsersTotalCountAC, toggleIsFetchingAC } from "../../redux/users-reducer";
+import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleIsFetching } from "../../redux/users-reducer";
 import Preloader from "../common/Preloader/Preloader";
 
 class UsersAPIComponent extends React.Component {
@@ -49,29 +49,36 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followActionCreator(userId));
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowActionCreator(userId));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersActionCreator(users));
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageActionCreator(pageNumber));
-        },
-        setTotalUsersCount: (totalCount) => {
-            dispatch(setUsersTotalCountAC(totalCount));
-        },
-        toggleIsFetching: (isFetching) => {
-            dispatch(toggleIsFetchingAC(isFetching));
-        }
-    };
-};
+// let mapDispatchToProps = (dispatch) => {
+//     return {
+//         follow: (userId) => {
+//             dispatch(followActionCreator(userId));
+//         },
+//         unfollow: (userId) => {
+//             dispatch(unfollowActionCreator(userId));
+//         },
+//         setUsers: (users) => {
+//             dispatch(setUsersActionCreator(users));
+//         },
+//         setCurrentPage: (pageNumber) => {
+//             dispatch(setCurrentPageActionCreator(pageNumber));
+//         },
+//         setTotalUsersCount: (totalCount) => {
+//             dispatch(setUsersTotalCountAC(totalCount));
+//         },
+//         toggleIsFetching: (isFetching) => {
+//             dispatch(toggleIsFetchingAC(isFetching));
+//         }
+//     };
+// };
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+const UsersContainer = connect(mapStateToProps, {
+    follow: follow,
+    unfollow: unfollow,
+    setUsers: setUsers,
+    setCurrentPage: setCurrentPage,
+    setTotalUsersCount: setTotalUsersCount,
+    toggleIsFetching: toggleIsFetching
+})(UsersAPIComponent);
 
 export default UsersContainer;
