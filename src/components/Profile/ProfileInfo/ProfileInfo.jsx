@@ -1,14 +1,22 @@
 import React from "react";
+import Preloader from "../../common/Preloader/Preloader";
 import s from './ProfileInfo.module.css';
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    if(!props.profile) {
+        return <Preloader />
+    }
     return (
         <div className={s.profileInfo}>
             <div className={s.avatar}>
-                <img src="https://android-obzor.com/wp-content/uploads/2022/03/chto-nuzhno-znat-pro-introverta-yesli-on-vash-partner_1-1.jpg" />
+            <img src={props.profile.photos.large} />
+            <div>{props.profile.aboutMe}</div>
+            <div>{props.profile.contacts.facebook}</div>
+            <div>{props.profile.contacts.instagram}</div>
+            <div>{props.profile.lookingForAJobDescription}</div>
             </div>
             <div className={s.userData}>
-                Alan Khamokov
+                {props.profile.fullName}
             </div>
         </div>
 
