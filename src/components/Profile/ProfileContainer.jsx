@@ -1,20 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { setUserProfile, getUsers } from "../../redux/profile-reducer";
+import { getUserProfile } from "../../redux/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router";
+import { Navigate } from "react-router";
 
 class ProfileAPIContainer extends React.Component {
 
     componentDidMount() {
+        debugger
         let userId = this.props.router.params.userId;
         if (!userId) {
             userId = 28838; //мой id
         }
-        this.props.getUsers(userId);
+        this.props.getUserProfile(userId);
     }
 
     render() {
+        if (this.props.isAuth === false) return <Navigate to={'/login'} />;
+
         return (
             <Profile {...this.props} profile={this.props.profile} /> //прокидываем все пропсы дальше
         )
@@ -22,7 +26,8 @@ class ProfileAPIContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 // ProfileAPIContainer - классовая компонента, мы не можем использовать хуки в классвовых компонентах. 
@@ -45,6 +50,6 @@ function withRouter(Component) {
 
 let WithUrlDataContainerComponent = withRouter(ProfileAPIContainer);
 
-const ProfileContainer = connect(mapStateToProps, { setUserProfile, getUsers })(WithUrlDataContainerComponent)
+const ProfileContainer = connect(mapStateToProps, { getUserProfile })(WithUrlDataContainerComponent)
 
 export default ProfileContainer;

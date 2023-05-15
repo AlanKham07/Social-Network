@@ -24,7 +24,7 @@ export const usersAPI = {
 };
 
 export const profileAPI = {
-    getUser(userId) {
+    getUserProfile(userId) {
         return instance.get(`profile/${userId}`)
             .then(response => response.data)
     }
