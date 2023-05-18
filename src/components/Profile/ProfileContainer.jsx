@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Profile from "./Profile";
 import { getUserProfile } from "../../redux/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { Navigate } from "react-router";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 class ProfileAPIContainer extends React.Component {
 
@@ -17,17 +17,16 @@ class ProfileAPIContainer extends React.Component {
     }
 
     render() {
-        if (this.props.isAuth === false) return <Navigate to={'/login'} />;
-
         return (
             <Profile {...this.props} profile={this.props.profile} /> //прокидываем все пропсы дальше
         )
     }
 }
 
+let AuthRedirectComponent = withAuthRedirect(ProfileAPIContainer);
+
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
 })
 
 // ProfileAPIContainer - классовая компонента, мы не можем использовать хуки в классвовых компонентах. 
@@ -48,7 +47,7 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-let WithUrlDataContainerComponent = withRouter(ProfileAPIContainer);
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
 const ProfileContainer = connect(mapStateToProps, { getUserProfile })(WithUrlDataContainerComponent)
 
