@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
-import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingProgress, getUsers } from "../../redux/users-reducer";
+import { follow,  unfollow, getUsers, setCurrentPage } from "../../redux/users-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 class UsersAPIComponent extends React.Component {
 
@@ -42,38 +43,12 @@ let mapStateToProps = (state) => {
     }
 }
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followActionCreator(userId));
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollowActionCreator(userId));
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersActionCreator(users));
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPageActionCreator(pageNumber));
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setUsersTotalCountAC(totalCount));
-//         },
-//         toggleIsFetching: (isFetching) => {
-//             dispatch(toggleIsFetchingAC(isFetching));
-//         }
-//     };
-// };
-
-const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleFollowingProgress,
-    getUsers,
-})(UsersAPIComponent));
-
-export default UsersContainer;
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        getUsers,
+        setCurrentPage
+    })
+)(UsersAPIComponent);
