@@ -9,7 +9,6 @@ import { compose } from "redux";
 class ProfileAPIContainer extends React.Component {
 
     componentDidMount() {
-        debugger
         let userId = this.props.router.params.userId;
         if (!userId) {
             userId = 28838; //мой id
