@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Profile from "./Profile";
-import { getUserProfile } from "../../redux/profile-reducer";
+import { getUserProfile, getStatus, updateStatus } from "../../redux/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
@@ -14,17 +14,19 @@ class ProfileAPIContainer extends React.Component {
             userId = 28838; //мой id
         }
         this.props.getUserProfile(userId);
+        this.props.getStatus(userId);
     }
 
     render() {
         return (
-            <Profile {...this.props} profile={this.props.profile} /> //прокидываем все пропсы дальше
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} /> //прокидываем все пропсы дальше
         )
     }
 }
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 
 // ProfileAPIContainer - классовая компонента, мы не можем использовать хуки в классвовых компонентах. 
@@ -46,7 +48,7 @@ function withRouter(Component) {
 }
 
 export default compose(
-    connect(mapStateToProps, { getUserProfile }),
+    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
     withRouter,
     withAuthRedirect,
 )(ProfileAPIContainer);
