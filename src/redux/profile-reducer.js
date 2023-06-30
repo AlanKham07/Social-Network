@@ -1,7 +1,6 @@
 import { profileAPI } from './../../src/api/api'
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -10,7 +9,6 @@ let initialState = {
         { messages: 'Hello', likesCount: 9, id: 1 },
         { messages: 'How are you?', likesCount: 25, id: 2 }
     ],
-    newPostText: '',
     profile: null,
     status: ''
 };
@@ -22,7 +20,7 @@ const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
-                messages: state.newPostText,
+                messages: action.newPostText,
                 likesCount: 0,
                 id: 3
             };
@@ -33,12 +31,6 @@ const profileReducer = (state = initialState, action) => {
             };
         // к нам приходит state и мы не имеем право его менять напрямую, поэтому создаем копию.
         // так как копия поверхностная мы должны отдельно скопировать массив
-
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
         case SET_USER_PROFILE:
             return {
                 ...state,
@@ -54,9 +46,8 @@ const profileReducer = (state = initialState, action) => {
     }
 };
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
+export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostText });
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
-export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
 export const getUserProfile = (userId) => {
