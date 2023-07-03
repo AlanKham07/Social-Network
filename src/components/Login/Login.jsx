@@ -5,6 +5,7 @@ import { Input } from "../common/Preloader/FormsControls/FormsControls";
 import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router";
+import s from '../common/Preloader/FormsControls/FormsControls.module.css'
 
 const LoginForm = (props) => {
     console.log('RERENDER')
@@ -19,6 +20,10 @@ const LoginForm = (props) => {
             <div>
                 <Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me
             </div>
+            { props.error && <div className={s.formSummaryError}>
+                {props.error}
+            </div>
+            }
             <div>
                 <button>Login</button>
             </div>
