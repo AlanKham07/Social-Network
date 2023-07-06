@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import Profile from "./Profile";
 import { getUserProfile, getStatus, updateStatus } from "../../redux/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from "redux";
 
 class ProfileAPIContainer extends React.Component {
 
     componentDidMount() {
+        debugger
         let userId = this.props.router.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
@@ -41,7 +42,7 @@ function withRouter(Component) {
         return (
             <Component
                 {...props}
-                router={{ location, navigate, params }}
+                router={{ location, navigate, params}}
             />
         );
     }
@@ -52,5 +53,5 @@ function withRouter(Component) {
 export default compose(
     connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
     withRouter,
-    withAuthRedirect,
+    withAuthRedirect
 )(ProfileAPIContainer);
