@@ -9,12 +9,14 @@ import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetchin
 class UsersAPIComponent extends React.Component {
 
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props;
+        this.props.requestUsers(currentPage, pageSize);
     }
 
     onPageChange = (pageNumber) => {
         this.props.setCurrentPage(pageNumber); //пофиксить
-        this.props.requestUsers(pageNumber, this.props.pageSize);
+        const {pageSize} = this.props;
+        this.props.requestUsers(pageNumber, pageSize);
     }
 
     render() {

@@ -1,0 +1,10 @@
+.selectedPage {
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+.pageUsers span {
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}

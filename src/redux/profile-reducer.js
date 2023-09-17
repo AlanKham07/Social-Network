@@ -3,6 +3,7 @@ import { profileAPI } from './../../src/api/api'
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let initialState = {
     postData: [
@@ -41,6 +42,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case DELETE_POST:
+            return {
+                ...state,
+                postData: state.postData.filter(p => p.id != action.postId)
+            }
         default:
             return state;
     }
@@ -49,37 +55,32 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostText });
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
+export const deletePost = (postId) => ({ type: DELETE_POST, postId });
 
 export const getUserProfile = (userId) => {
 
-    return (dispatch) => {
+    return async (dispatch) => {
 
-        profileAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(setUserProfile(data));
-            })
+        let data = await profileAPI.getUserProfile(userId);
+        dispatch(setUserProfile(data));
     }
 }
 export const getStatus = (userId) => {
 
-    return (dispatch) => {
+    return async (dispatch) => {
 
-        profileAPI.getStatus(userId)
-            .then(data => {
-                dispatch(setStatus(data));
-            })
+        let data = await profileAPI.getStatus(userId);
+        dispatch(setStatus(data));
     }
 }
 export const updateStatus = (status) => {
 
-    return (dispatch) => {
+    return async (dispatch) => {
 
-        profileAPI.updateStatus(status)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setStatus(status));
-                }
-            })
+        let data = await profileAPI.updateStatus(status);
+        if (data.resultCode === 0) {
+            dispatch(setStatus(status));
+        }
     }
 }
 
