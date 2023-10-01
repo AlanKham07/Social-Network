@@ -11,8 +11,9 @@ import { initializeApp } from './redux/app-reducer';
 import { compose } from "redux";
 import Preloader from './components/common/Preloader/Preloader';
 import { useLocation, useNavigate, useParams } from "react-router";
+import { Navigate } from 'react-router';
 
-const DialogsContainer = React.lazy(() => import ('./components/Dialogs/DialogsContainer'))
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 
 class App extends React.Component {
   componentDidMount() {
@@ -30,10 +31,12 @@ class App extends React.Component {
         <div className='app-wrapper-content'>
           <Suspense fallback={<div><Preloader /></div>}>
             <Routes>
-              <Route path='/profile/:userId?' element={<ProfileContainer />} />
-              <Route path='/dialogs/*' element={<DialogsContainer />} />
-              <Route path='/users' element={<UsersContainer />} />
-              <Route path='/login' element={<Login />} />
+                <Route exact path="/" element={<Navigate to={'/profile'} /> } />
+                <Route path='/profile/:userId?' element={<ProfileContainer />} />
+                <Route path='/dialogs/*' element={<DialogsContainer />} />
+                <Route path='/users' element={<UsersContainer />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='*' element={<div>404 NOT FOUND</div>} />
             </Routes>
           </Suspense>
         </div>
