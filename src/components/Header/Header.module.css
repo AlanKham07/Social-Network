@@ -1,6 +1,7 @@
 .header {
     grid-area: h;
-    background-color: rgb(0, 139, 231);
+    display: flex;
+    background-color: #000000;
     width: 99vw;
 }
 
@@ -8,12 +9,58 @@
     height: 100%;
     width: 70px;
     margin-left: 110px;
+    
 }
 
 .loginBlock {
-    float: right;
+    margin-left: 1060px;
 }
 
 .loginBlock a {
     color: white;
+}
+
+.loginBlock button {
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0B63F6;
+    margin-right: 210px;
+    margin-top: 13px;
+    width: 130px;
+    height: 35px;
+}
+
+.loginBlock button span {
+    font-size: 17px;
+}
+
+.loginBlock button:hover {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #3C82F8;
+}
+
+.header .v {
+    margin-top: 13px;
+    margin-bottom: 10px;
+    margin-right: 1.5px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 27px;
+    border: thick double #32a1ce;
+
+    
+}
+
+.header .contora {
+    margin-top: 17px;
+    margin-bottom: 10px;
+    font-size: 27px;
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+
 }

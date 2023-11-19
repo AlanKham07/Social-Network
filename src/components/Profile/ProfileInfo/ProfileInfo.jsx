@@ -21,7 +21,7 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
         saveProfile(formData).then(() => {
             setEditMode(false);
         })
-        
+
     }
     return (
         <div className={s.profileInfo}>
@@ -29,6 +29,9 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
                 <img src={profile.photos.large || userPhoto} />
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected} />}
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
+            </div>
+
+            <div className={s.profileData}>
                 {editMode ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
                     : <ProfileData goToEditMode={() => { setEditMode(true) }} isOwner={isOwner} profile={profile} />}
             </div>
@@ -38,24 +41,26 @@ const ProfileInfo = ({ profile, status, updateStatus, isOwner, savePhoto, savePr
 }
 
 const ProfileData = ({ profile, isOwner, goToEditMode }) => {
-    return <div>
-        {isOwner && <div><button onClick={goToEditMode}>Edit</button></div>}
+    return <div className={s.edit}>
+        <div className={s.editName}>
         <div className={s.userData}>
-            <b>Full name</b>: {profile.fullName}
+            <b>Имя сотрудника</b>: {profile.fullName}
+        </div>
+        {isOwner && <div><button className={s.button} onClick={goToEditMode}><span>ред.</span></button></div>}
         </div>
         <div>
             <b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'no'}
         </div>
         {profile.lookingForAJob &&
             <div>
-                <b>My professional skills</b>: {profile.lookingForAJobDescription}
+                <b>Профессиональные навыки</b>: {profile.lookingForAJobDescription}
             </div>
         }
         <div>
-            <b>About me</b>: {profile.aboutMe}
+            <b>Обо мне</b>: {profile.aboutMe}
         </div>
         <div>
-            <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+            <b>Связаться</b>: {Object.keys(profile.contacts).map(key => {
                 return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} />
             })}
         </div>
@@ -63,7 +68,7 @@ const ProfileData = ({ profile, isOwner, goToEditMode }) => {
 }
 
 const Contact = ({ contactTitle, contactValue }) => {
-    return <div><b>{contactTitle}</b>: {contactValue}</div>
+    return <div className={s.contacts}><b>{contactTitle}</b>: {contactValue}</div>
 }
 
 export default ProfileInfo;

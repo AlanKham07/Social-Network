@@ -31,12 +31,12 @@ class App extends React.Component {
         <div className='app-wrapper-content'>
           <Suspense fallback={<div><Preloader /></div>}>
             <Routes>
-                <Route exact path="/" element={<Navigate to={'/profile'} /> } />
+                {/* <Route exact path="/" element={<Navigate to={'/profile'} /> } /> */}
                 <Route path='/profile/:userId?' element={<ProfileContainer />} />
                 <Route path='/dialogs/*' element={<DialogsContainer />} />
                 <Route path='/users' element={<UsersContainer />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='*' element={<div>404 NOT FOUND</div>} />
+                {/* <Route path='*' element={<div>404 NOT FOUND</div>} /> */}
             </Routes>
           </Suspense>
         </div>

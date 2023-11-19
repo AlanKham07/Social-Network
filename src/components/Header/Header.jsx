@@ -5,9 +5,11 @@ import s from './Header.module.css';
 const Header = (props) => {
     return (
         <header className={s.header}>
-            <img src='https://static.tildacdn.com/tild6138-3535-4466-a135-393166633639/photo-2-1536x1536.png' />
+            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdo0Yf2hJQHZuzg9Ni_7UnhJgKFlhb1amFEnOZMUMgc2IE35miB2kiF6oVUMjAGsxD248&usqp=CAU' />
+            <div className={s.v}><span>В</span></div>
+            <div className={s.contora}><span>КОНТОРЕ</span></div>
             <div className={s.loginBlock}>
-                { props.isAuth ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div> : <NavLink to={'/login'}>Login</NavLink> }
+                { props.isAuth ? <div><button onClick={props.logout}><span>Войти</span></button></div> : <NavLink to={'/login'}>Login</NavLink> }
             </div>
         </header>
     )

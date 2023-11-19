@@ -52,7 +52,7 @@ const profileReducer = (state = initialState, action) => {
         case SAVE_PHOTO_SUCCESS:
             return {
                 ...state,
-                profile: {...state.profile, photos: action.photos}
+                profile: { ...state.profile, photos: action.photos }
             }
         default:
             return state;
@@ -84,31 +84,34 @@ export const getStatus = (userId) => {
 export const updateStatus = (status) => {
 
     return async (dispatch) => {
-
-        let data = await profileAPI.updateStatus(status);
-        if (data.resultCode === 0) {
-            dispatch(setStatus(status));
+        try {
+            let data = await profileAPI.updateStatus(status);
+            if (data.resultCode === 0) {
+                dispatch(setStatus(status));
+            }
+        } catch (error) {
+            console.log('not found')
         }
     }
 }
 export const savePhoto = (file) => {
-    
+
     return async (dispatch) => {
-        
+
         let data = await profileAPI.savePhoto(file);
         if (data.resultCode === 0) {
-            
+
             dispatch(savePhotoSuccess(data.data.photos));
         }
     }
 }
 export const saveProfile = (profile) => {
-    
+
     return async (dispatch, getState) => {
         const userId = getState().auth.id;
         let data = await profileAPI.saveProfile(profile);
         if (data.resultCode === 0) {
-            
+
             dispatch(getUserProfile(userId));
         } else {
             dispatch(stopSubmit('editProfile', { _error: data.messages[0] }));
